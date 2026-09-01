@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Our 3rd Monthsary 💗</title>
+<meta name="description" content="A little surprise, made just for you.">
+
+<!-- Google Fonts: Playfair Display (romantic serif for headlines) + Poppins (clean, warm body text) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Poppins:wght@300;400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       PROGRESS BAR — fills up as she scrolls through the surprise
+  ============================================================= -->
+  <div class="progress-track" aria-hidden="true">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+  <!-- ============================================================
+       CURSOR HEART TRAIL (desktop only, added via JS)
+  ============================================================= -->
+  <div id="cursorTrailLayer" class="cursor-trail-layer" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       OPENING SCREEN
+  ============================================================= -->
+  <section id="openingScreen" class="opening-screen">
+    <canvas id="starsCanvas" class="stars-canvas"></canvas>
+    <div class="opening-content">
+      <p class="opening-eyebrow" id="openingGreeting">Hey, Love...</p>
+      <h1 class="opening-title">I made something for you.</h1>
+      <button id="openSurpriseBtn" class="glow-btn">
+        <span>Open Your Surprise</span>
+        <span class="glow-btn-heart">💗</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MAIN SITE (hidden until the surprise is opened)
+  ============================================================= -->
+  <main id="mainSite" class="main-site" hidden>
+
+    <!-- floating hearts + ambient particles live above everything -->
+    <div id="floatingHeartsLayer" class="floating-hearts-layer" aria-hidden="true"></div>
+
+    <!-- ============================================================
+         SECTION 1 — A MESSAGE
+    ============================================================= -->
+    <section class="section section-message" id="section-message">
+      <div class="section-inner">
+        <p class="eyebrow-soft">Before anything else...</p>
+        <p class="handwritten-message" id="typewriterTarget"></p>
+        <button class="ghost-btn scroll-next" data-target="section-timeline">Keep Going <span class="arrow">→</span></button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 2 — OUR 3 MONTHS (timeline)
+    ============================================================= -->
+    <section class="section section-timeline" id="section-timeline">
+      <div class="section-inner">
+        <h2 class="section-title">Our Three Months</h2>
+        <div class="timeline" id="timelineList">
+          <!-- Timeline items are rendered by JS from relationshipData.timeline in script.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 3 — OUR MEMORIES (gallery)
+    ============================================================= -->
+    <section class="section section-gallery" id="section-gallery">
+      <div class="section-inner">
+        <h2 class="section-title">Our Memories</h2>
+        <p class="section-subtitle">A little scrapbook of us.</p>
+        <div class="gallery-grid" id="galleryGrid">
+          <!-- Photo cards rendered by JS from the `photos` array in script.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Lightbox for gallery -->
+    <div class="lightbox" id="lightbox" hidden>
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+      <figure class="lightbox-figure">
+        <img id="lightboxImg" src="" alt="">
+        <figcaption id="lightboxCaption"></figcaption>
+      </figure>
+    </div>
+
+    <!-- ============================================================
+         SECTION 4 — THINGS I LOVE ABOUT YOU
+    ============================================================= -->
+    <section class="section section-love" id="section-love">
+      <div class="section-inner">
+        <h2 class="section-title">Things I Love About You</h2>
+        <p class="section-subtitle">Tap a card.</p>
+        <div class="love-grid" id="loveGrid">
+          <!-- Flip cards rendered by JS from the `loveReasons` array in script.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 5 — OUR SONG
+    ============================================================= -->
+    <section class="section section-song" id="section-song">
+      <div class="section-inner">
+        <h2 class="section-title">This Will Remind You i will always be yours...</h2>
+
+        <div class="music-player" id="musicPlayer">
+          <div class="music-art">
+            <div class="music-note-pulse">♪</div>
+          </div>
+          <div class="music-info">
+            <p class="music-title" id="musicTitle">Alipin</p>
+            <p class="music-artist" id="musicArtist">— Shamrock —</p>
+
+            <div class="music-controls">
+              <button id="musicPlayBtn" class="music-play-btn" aria-label="Play our song">
+                <span id="musicPlayIcon">▶</span>
+              </button>
+              <div class="music-progress-wrap">
+                <span class="music-time" id="musicCurrentTime">0:00</span>
+                <input type="range" id="musicSeek" class="music-seek" value="0" min="0" max="100" step="0.1">
+                <span class="music-time" id="musicDuration">0:00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <audio id="audioElement" src="Songs/womp.mp3" preload="metadata"></audio>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 6 — IF YOU EVER WONDER...
+    ============================================================= -->
+    <section class="section section-wonder" id="section-wonder">
+      <div class="section-inner">
+        <h2 class="section-title">If You Ever Wonder What You Mean To Me...</h2>
+        <div class="wonder-list" id="wonderList">
+          <!-- Messages rendered by JS from `wonderMessages` array in script.js, fade in one at a time -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 7 — INTERACTIVE LOVE LETTER
+    ============================================================= -->
+    <section class="section section-letter" id="section-letter">
+      <div class="section-inner">
+        <h2 class="section-title">One Unopened Letter</h2>
+
+        <div class="envelope-wrap">
+          <div class="envelope" id="envelope">
+            <div class="envelope-back"></div>
+            <div class="envelope-letter" id="envelopeLetter">
+              <div class="letter-text" id="letterText"><!-- filled by JS from `loveLetter` in script.js --></div>
+            </div>
+            <div class="envelope-flap"></div>
+            <div class="envelope-front"></div>
+            <div class="envelope-seal">💌</div>
+          </div>
+          <button class="ghost-btn" id="openLetterBtn">Open Letter</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 8 — THE QUESTION
+    ============================================================= -->
+    <section class="section section-question" id="section-question">
+      <div class="section-inner">
+        <p class="eyebrow-soft">So... before you finish...</p>
+        <h2 class="question-title">Will you keep making more memories with me?</h2>
+
+        <div class="question-buttons">
+          <button class="glow-btn" id="yesBtn">Of course! 💗</button>
+          <button class="ghost-btn maybe-btn" id="maybeBtn">Maybe... 🥺</button>
+        </div>
+
+        <p class="question-answer" id="questionAnswer" hidden>I knew it. ❤️</p>
+      </div>
+      <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+    </section>
+
+    <!-- ============================================================
+         FINAL SECTION — 3RD MONTHSARY
+    ============================================================= -->
+    <section class="section section-final" id="section-final">
+      <div class="section-inner">
+        <h2 class="final-title">Happy 3rd Monthsary, Adiee. ❤️</h2>
+        <p class="final-text">
+          Three months may sound short,<br>
+          but every moment with you has meant<br>
+          more to me than I can properly explain.
+        </p>
+        <p class="final-thanks">Thank you for being part of my life.</p>
+        <p class="final-signoff">Here's to many more months with you. ❤️</p>
+
+        <div class="final-heart" aria-hidden="true">❤</div>
+
+        <!-- ============================================================
+             SECRET SURPRISE — a tiny, easy-to-miss heart Easter egg
+        ============================================================= -->
+        <button class="secret-heart" id="secretHeart" aria-label="A tiny secret">♡</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Secret message modal, revealed by the Easter egg heart -->
+  <div class="secret-modal" id="secretModal" hidden>
+    <div class="secret-modal-card">
+      <p class="secret-modal-title">You found my secret...</p>
+      <p class="secret-modal-text" id="secretModalText"></p>
+      <button class="ghost-btn" id="secretModalClose">Close</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
